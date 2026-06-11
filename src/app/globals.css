@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-brand-orange: #FF4D06;
+  --color-brand-blue: #2057DF;
+
+  --color-surface: #FFFFFF;
+  --color-surface-muted: #F5F5F7;
+  --color-surface-hover: #EEEEF0;
+
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #6B6B6B;
+  --color-text-muted: #9E9E9E;
+
+  --color-border: #E5E5EA;
+
+  --color-danger: #DC2626;
+  --color-success: #16A34A;
+  --color-warning: #F59E0B;
+  --color-info: #2057DF;
+
+  --color-status-pending: #F59E0B;
+  --color-status-pending-bg: #FEF3C7;
+  --color-status-confirmed: #16A34A;
+  --color-status-confirmed-bg: #DCFCE7;
+  --color-status-cancelled: #DC2626;
+  --color-status-cancelled-bg: #FEE2E2;
+  --color-status-progress: #2057DF;
+  --color-status-progress-bg: #DBEAFE;
+  --color-status-completed: #6B7280;
+  --color-status-completed-bg: #F3F4F6;
+
+  --color-background: var(--color-surface);
+  --color-foreground: var(--color-text-primary);
+
+  --color-primary: var(--color-brand-orange);
+  --color-primary-foreground: #FFFFFF;
+
+  --color-secondary: var(--color-brand-blue);
+  --color-secondary-foreground: #FFFFFF;
+
+  --color-accent: var(--color-surface-muted);
+  --color-accent-foreground: var(--color-text-primary);
+
+  --color-destructive: var(--color-danger);
+  --color-destructive-foreground: #FFFFFF;
+
+  --color-muted: var(--color-surface-muted);
+  --color-muted-foreground: var(--color-text-secondary);
+
+  --color-card: var(--color-surface);
+  --color-card-foreground: var(--color-text-primary);
+
+  --color-popover: var(--color-surface);
+  --color-popover-foreground: var(--color-text-primary);
+
+  --color-ring: var(--color-brand-blue);
+  --color-input: var(--color-border);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+body {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
