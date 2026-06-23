@@ -9,6 +9,7 @@ import { BottomNav } from "@/components/layout/bottom-nav";
 import { AuthProvider, useAuth } from "@/stores/auth-context";
 import { useMobile } from "@/hooks/use-mobile";
 import { Loader2 } from "lucide-react";
+import { ToastNotifications } from "@/components/shared/toast-notifications";
 
 function DashboardShell({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
@@ -36,6 +37,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
   if (isMobile) {
     return (
       <div className="flex min-h-screen flex-col">
+        <ToastNotifications />
         <Header onMenuClick={() => setMobileMenuOpen(true)} />
         <MobileNav open={mobileMenuOpen} onOpenChange={setMobileMenuOpen} />
         <main className="flex-1 px-3 pb-20 pt-3">
@@ -48,6 +50,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-screen">
+      <ToastNotifications />
       <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
       <div className={`flex flex-1 flex-col transition-all duration-200 ${collapsed ? "ml-16" : "ml-64"}`}>
         <Header onMenuClick={() => {}} />

@@ -13,6 +13,7 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { LogOut, User, Menu } from "lucide-react";
 import { ROLE_LABELS } from "@/lib/constants";
+import { NotificationsBell } from "./notifications-bell";
 
 interface Props {
   onMenuClick: () => void;
@@ -43,6 +44,8 @@ export function Header({ onMenuClick }: Props) {
       </Button>
 
       <div className="flex-1" />
+
+      <NotificationsBell />
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
