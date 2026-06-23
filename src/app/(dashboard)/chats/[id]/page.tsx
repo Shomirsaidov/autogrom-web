@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/lib/api";
+import { useAuth } from "@/stores/auth-context";
 import {
   ArrowLeft,
   Send,
@@ -14,8 +15,20 @@ import {
   Image,
   FileText,
   Loader2,
+  Users,
+  Plus,
+  Trash,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+import { Label } from "@/components/ui/label";
 
 interface Message {
   id: string;
@@ -26,12 +39,21 @@ interface Message {
   file_url?: string;
   file_name?: string;
   created_at: string;
+  sender_id?: string;
+  sender?: {
+    id: string;
+    name: string;
+    role: string;
+  } | null;
 }
 
 interface ConversationDetail {
   id: string;
-  user_id: string;
-  specialist_id: string;
+  user_id: string | null;
+  specialist_id: string | null;
+  is_group?: boolean;
+  group_name?: string | null;
+  created_by?: string | null;
   specialist: {
     id: string;
     full_name: string;
@@ -46,6 +68,7 @@ interface ConversationDetail {
 export default function ChatDetailPage() {
   const params = useParams();
   const router = useRouter();
+  const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [conv, setConv] = useState<ConversationDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -56,12 +79,19 @@ export default function ChatDetailPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const pollRef = useRef<ReturnType<typeof setInterval>>(undefined);
 
+  // Group Details dialog states
+  const [infoDialogOpen, setInfoDialogOpen] = useState(false);
+  const [members, setMembers] = useState<any[]>([]);
+  const [loadingMembers, setLoadingMembers] = useState(false);
+  const [addMemberDialogOpen, setAddMemberDialogOpen] = useState(false);
+  const [allSpecialists, setAllSpecialists] = useState<any[]>([]);
+  const [loadingSpecialists, setLoadingSpecialists] = useState(false);
+
   const loadMessages = async () => {
     try {
       const res = await api.get<{ messages: Message[] }>(
         `/api/conversations/${params.id}/messages`
       );
-      // Also load user info from conversations list
       setMessages(res.messages);
       if (!conv) {
         const convRes = await api.get<{ conversations: ConversationDetail[] }>(
@@ -86,6 +116,67 @@ export default function ChatDetailPage() {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  const loadMembers = async () => {
+    setLoadingMembers(true);
+    try {
+      const res = await api.get<{ members: any[] }>(
+        `/api/conversations/${params.id}/members`
+      );
+      setMembers(res.members || []);
+    } catch (err) {
+      console.error("Failed to load group members", err);
+    } finally {
+      setLoadingMembers(false);
+    }
+  };
+
+  const openInfoDialog = () => {
+    setInfoDialogOpen(true);
+    loadMembers();
+  };
+
+  const handleRemoveMember = async (memberUserId: string) => {
+    try {
+      await api.delete(
+        `/api/conversations/${params.id}/members/${memberUserId}`
+      );
+      await loadMembers();
+    } catch (err) {
+      console.error("Failed to remove member", err);
+    }
+  };
+
+  const openAddMemberDialog = async () => {
+    setAddMemberDialogOpen(true);
+    setLoadingSpecialists(true);
+    try {
+      const res = await api.get<{ specialists: any[] }>(
+        "/api/business/specialists"
+      );
+      const currentMemberUserIds = members.map((m) => m.user_id);
+      const available = (res.specialists || []).filter(
+        (spec) => spec.user_id && !currentMemberUserIds.includes(spec.user_id)
+      );
+      setAllSpecialists(available);
+    } catch (err) {
+      console.error("Failed to load specialists", err);
+    } finally {
+      setLoadingSpecialists(false);
+    }
+  };
+
+  const handleAddMember = async (memberUserId: string) => {
+    try {
+      await api.post(`/api/conversations/${params.id}/members`, {
+        user_id: memberUserId,
+      });
+      setAddMemberDialogOpen(false);
+      await loadMembers();
+    } catch (err) {
+      console.error("Failed to add member", err);
+    }
+  };
 
   async function handleSend() {
     const body = text.trim();
@@ -142,7 +233,9 @@ export default function ChatDetailPage() {
     }
   }
 
-  const title = conv?.client?.name || "Чат";
+  const isGroup = conv?.is_group;
+  const title = isGroup ? conv.group_name || "Группа" : conv?.client?.name || "Чат";
+  const isStaffManager = user?.role === "admin" || user?.role === "moderator";
 
   if (loading && !conv) {
     return (
@@ -183,27 +276,50 @@ export default function ChatDetailPage() {
       <div className="h-[env(safe-area-inset-top,0px)] w-full bg-surface shrink-0" />
 
       {/* Header */}
-      <div className="flex items-center gap-3 border-b px-4 py-3 shrink-0 bg-surface">
+      <div
+        onClick={isGroup ? openInfoDialog : undefined}
+        className={cn(
+          "flex items-center gap-3 border-b px-4 py-3 shrink-0 bg-surface",
+          isGroup ? "cursor-pointer hover:bg-surface-hover/50 transition-colors" : ""
+        )}
+      >
         <Button
           variant="ghost"
           size="icon"
           className="h-8 w-8"
-          onClick={() => router.push("/chats")}
+          onClick={(e) => {
+            e.stopPropagation();
+            router.push("/chats");
+          }}
           aria-label="Назад"
         >
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <Avatar className="h-9 w-9">
-          <AvatarFallback className="bg-brand-orange text-white text-xs font-semibold">
-            {title
-              .split(" ")
-              .map((n) => n[0])
-              .join("")
-              .slice(0, 2)}
+          <AvatarFallback
+            className={cn(
+              "text-white text-xs font-semibold",
+              isGroup ? "bg-brand-blue" : "bg-brand-orange"
+            )}
+          >
+            {isGroup ? (
+              <Users className="h-4 w-4" />
+            ) : (
+              title
+                .split(" ")
+                .map((n) => n[0])
+                .join("")
+                .slice(0, 2)
+            )}
           </AvatarFallback>
         </Avatar>
-        <div>
-          <p className="font-medium text-text-primary">{title}</p>
+        <div className="flex-1 min-w-0">
+          <p className="font-medium text-text-primary truncate">{title}</p>
+          {isGroup && (
+            <p className="text-[10px] text-text-secondary truncate mt-0.5">
+              Нажмите для просмотра участников
+            </p>
+          )}
         </div>
       </div>
 
@@ -215,23 +331,31 @@ export default function ChatDetailPage() {
           </div>
         )}
         {messages.map((msg) => {
-          const isBusiness = msg.sender_role === "business";
+          const isMe = msg.sender_id
+            ? msg.sender_id === user?.id
+            : msg.sender_role === "business";
+
           return (
             <div
               key={msg.id}
               className={cn(
                 "flex",
-                isBusiness ? "justify-end" : "justify-start"
+                isMe ? "justify-end" : "justify-start"
               )}
             >
               <div
                 className={cn(
                   "max-w-[80%] md:max-w-[70%] rounded-2xl px-3.5 py-2.5 shadow-sm",
-                  isBusiness
+                  isMe
                     ? "bg-brand-orange text-white rounded-br-none"
                     : "bg-surface text-text-primary rounded-bl-none border border-border/50"
                 )}
               >
+                {!isMe && isGroup && msg.sender?.name && (
+                  <p className="text-xs font-semibold text-brand-blue mb-1">
+                    {msg.sender.name}
+                  </p>
+                )}
                 {msg.body && (
                   <p className="text-sm whitespace-pre-wrap break-words">
                     {msg.body}
@@ -251,7 +375,7 @@ export default function ChatDetailPage() {
                     rel="noopener noreferrer"
                     className={cn(
                       "mt-1.5 flex items-center gap-2 text-sm underline font-medium",
-                      isBusiness ? "text-white/90 hover:text-white" : "text-brand-blue hover:text-brand-blue/90"
+                      isMe ? "text-white/90 hover:text-white" : "text-brand-blue hover:text-brand-blue/90"
                     )}
                   >
                     <FileText className="h-4 w-4 shrink-0" />
@@ -262,7 +386,7 @@ export default function ChatDetailPage() {
                   <p
                     className={cn(
                       "text-[9px] font-medium leading-none",
-                      isBusiness ? "text-white/60" : "text-text-muted"
+                      isMe ? "text-white/60" : "text-text-muted"
                     )}
                   >
                     {new Date(msg.created_at).toLocaleTimeString("ru", {
@@ -320,6 +444,146 @@ export default function ChatDetailPage() {
         {/* Safe Area Spacer at bottom for Mobile Devices (e.g. Home indicator bar) */}
         <div className="h-[env(safe-area-inset-bottom,0px)] w-full shrink-0" />
       </div>
+
+      {/* Group Info Dialog */}
+      <Dialog open={infoDialogOpen} onOpenChange={setInfoDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Групповой чат: {title}</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-2">
+            <div className="flex items-center justify-between border-b pb-2">
+              <span className="text-sm font-semibold text-text-secondary">
+                Участники группы
+              </span>
+              {isStaffManager && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={openAddMemberDialog}
+                  className="text-brand-orange border-brand-orange/20 hover:bg-brand-orange/5 h-8 text-xs font-medium"
+                >
+                  <Plus className="h-3.5 w-3.5 mr-1" />
+                  Добавить
+                </Button>
+              )}
+            </div>
+
+            <div className="border rounded-lg max-h-60 overflow-y-auto divide-y bg-surface">
+              {loadingMembers ? (
+                <div className="flex items-center justify-center p-8">
+                  <Loader2 className="h-6 w-6 animate-spin text-brand-orange" />
+                </div>
+              ) : members.length === 0 ? (
+                <div className="p-4 text-sm text-text-muted text-center">
+                  Нет участников
+                </div>
+              ) : (
+                members.map((member) => {
+                  const isCurrentMemberMe = member.user_id === user?.id;
+                  return (
+                    <div
+                      key={member.id}
+                      className="flex items-center justify-between p-3 hover:bg-surface-hover/30 transition-colors"
+                    >
+                      <div>
+                        <p className="text-sm font-semibold text-text-primary flex items-center gap-1.5">
+                          {member.user?.name || "Сотрудник"}
+                          {isCurrentMemberMe && (
+                            <span className="text-[10px] font-normal text-text-muted">
+                              (Вы)
+                            </span>
+                          )}
+                        </p>
+                        <p className="text-xs text-text-secondary">
+                          {member.user?.role || "master"}
+                        </p>
+                      </div>
+                      {isStaffManager && !isCurrentMemberMe && (
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() => handleRemoveMember(member.user_id)}
+                          className="h-8 w-8 text-text-muted hover:text-danger hover:bg-danger/5 shrink-0"
+                          aria-label="Исключить"
+                        >
+                          <Trash className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
+                  );
+                })
+              )}
+            </div>
+          </div>
+          <DialogFooter className="pt-2 border-t">
+            <Button
+              size="sm"
+              onClick={() => setInfoDialogOpen(false)}
+              className="bg-brand-orange hover:bg-brand-orange/90 text-white font-medium"
+            >
+              Закрыть
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Add Member Dialog */}
+      <Dialog open={addMemberDialogOpen} onOpenChange={setAddMemberDialogOpen}>
+        <DialogContent className="sm:max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Добавить участника</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-2">
+            <div className="border rounded-lg max-h-60 overflow-y-auto divide-y bg-surface">
+              {loadingSpecialists ? (
+                <div className="flex items-center justify-center p-8">
+                  <Loader2 className="h-6 w-6 animate-spin text-brand-orange" />
+                </div>
+              ) : allSpecialists.length === 0 ? (
+                <div className="p-4 text-sm text-text-muted text-center">
+                  Все специалисты уже добавлены
+                </div>
+              ) : (
+                allSpecialists.map((spec) => (
+                  <div
+                    key={spec.id}
+                    className="flex items-center justify-between p-3 hover:bg-surface-hover/30 transition-colors"
+                  >
+                    <div>
+                      <p className="text-sm font-semibold text-text-primary">
+                        {spec.full_name}
+                      </p>
+                      {spec.specialization && (
+                        <p className="text-xs text-text-secondary">
+                          {spec.specialization}
+                        </p>
+                      )}
+                    </div>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => spec.user_id && handleAddMember(spec.user_id)}
+                      className="text-brand-blue hover:bg-brand-blue/5 font-semibold text-xs h-8"
+                    >
+                      Выбрать
+                    </Button>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+          <DialogFooter className="pt-2 border-t">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setAddMemberDialogOpen(false)}
+            >
+              Отмена
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
