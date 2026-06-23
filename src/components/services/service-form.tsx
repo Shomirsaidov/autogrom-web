@@ -36,6 +36,8 @@ interface Props {
     price_fixed: boolean;
     duration_minutes: number;
     photo_url: string;
+    discount_tag?: string | null;
+    discount_price?: number | null;
   };
 }
 
@@ -47,6 +49,8 @@ export function ServiceForm({ open, onOpenChange, onSaved, initial }: Props) {
   const [priceFixed, setPriceFixed] = useState(true);
   const [durationMinutes, setDurationMinutes] = useState(60);
   const [photoUrl, setPhotoUrl] = useState("");
+  const [discountTag, setDiscountTag] = useState("");
+  const [discountPrice, setDiscountPrice] = useState<number | "">("");
 
   const [allSpecialists, setAllSpecialists] = useState<Specialist[]>([]);
   const [linkedSpecialistIds, setLinkedSpecialistIds] = useState<Set<string>>(
@@ -63,6 +67,8 @@ export function ServiceForm({ open, onOpenChange, onSaved, initial }: Props) {
     setPriceFixed(initial?.price_fixed ?? true);
     setDurationMinutes(initial?.duration_minutes || 60);
     setPhotoUrl(initial?.photo_url || "");
+    setDiscountTag(initial?.discount_tag || "");
+    setDiscountPrice(initial?.discount_price ?? "");
 
     // Load all specialists
     api
@@ -117,6 +123,8 @@ export function ServiceForm({ open, onOpenChange, onSaved, initial }: Props) {
         price_fixed: priceFixed,
         duration_minutes: durationMinutes,
         photo_url: photoUrl || undefined,
+        discount_tag: discountTag.trim() || null,
+        discount_price: discountPrice === "" ? null : Number(discountPrice),
       };
 
       let serviceId: string;
@@ -226,6 +234,29 @@ export function ServiceForm({ open, onOpenChange, onSaved, initial }: Props) {
             <Label htmlFor="price-fixed">
               {priceFixed ? "Фиксированная цена" : "Цена от"}
             </Label>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="discount-tag">Тег скидки (например: 10% или Акция)</Label>
+              <Input
+                id="discount-tag"
+                value={discountTag}
+                onChange={(e) => setDiscountTag(e.target.value)}
+                placeholder="Нет скидки"
+              />
+            </div>
+            <div>
+              <Label htmlFor="discount-price">Цена со скидкой (₽)</Label>
+              <Input
+                id="discount-price"
+                type="number"
+                min={0}
+                value={discountPrice}
+                onChange={(e) => setDiscountPrice(e.target.value === "" ? "" : Number(e.target.value))}
+                placeholder="Оставьте пустым"
+              />
+            </div>
           </div>
 
           <Separator />
