@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
 import { MobileNav } from "@/components/layout/mobile-nav";
@@ -16,6 +16,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isAuthenticated, loading } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
   const isMobile = useMobile();
 
   useEffect(() => {
@@ -34,7 +35,19 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
 
   if (!isAuthenticated) return null;
 
+  const isChatConversation = pathname.startsWith("/chats/") && pathname !== "/chats";
+
   if (isMobile) {
+    if (isChatConversation) {
+      return (
+        <div className="flex h-[100dvh] flex-col bg-background overflow-hidden">
+          <ToastNotifications />
+          <main className="flex-1 p-0 h-full overflow-hidden">
+            {children}
+          </main>
+        </div>
+      );
+    }
     return (
       <div className="flex min-h-screen flex-col">
         <ToastNotifications />

@@ -9,6 +9,7 @@ import { EmptyState } from "@/components/shared/empty-state";
 import { TableSkeleton } from "@/components/shared/loading-skeleton";
 import { api } from "@/lib/api";
 import { MessageSquare, Search, ChevronRight, User, Star } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface Conversation {
   id: string;
@@ -77,23 +78,27 @@ export default function ChatsPage() {
           description="Чаты появляются, когда клиент начинает переписку."
         />
       ) : (
-        <Card>
+        <Card className="border-0 shadow-none bg-transparent py-0 gap-0 lg:border lg:shadow-sm lg:bg-card lg:py-6 lg:gap-6">
           <CardContent className="p-0">
-            <div className="divide-y">
+            <div className="divide-y divide-border">
               {filtered.map((conv) => {
                 const name = conv.client?.name || conv.specialist?.full_name || "Клиент";
                 const time = conv.last_message_at
                   ? formatRelativeTime(conv.last_message_at)
                   : "";
+                const needsReply = conv.last_message_sender && conv.last_message_sender !== "business";
 
                 return (
                   <div
                     key={conv.id}
-                    className="flex items-center gap-4 p-4 hover:bg-surface-hover cursor-pointer transition-colors"
+                    className={cn(
+                      "flex items-center gap-4 p-4 hover:bg-surface-hover cursor-pointer transition-colors active:bg-surface-hover/80",
+                      needsReply ? "bg-brand-orange/[0.02]" : ""
+                    )}
                     onClick={() => router.push(`/chats/${conv.id}`)}
                   >
                     <Avatar className="h-10 w-10">
-                      <AvatarFallback className="bg-brand-orange text-white text-sm">
+                      <AvatarFallback className="bg-brand-orange text-white text-sm font-semibold">
                         {name
                           .split(" ")
                           .map((n) => n[0])
@@ -103,23 +108,37 @@ export default function ChatsPage() {
                     </Avatar>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
-                        <p className="font-medium text-text-primary truncate">
+                        <p className={cn(
+                          "font-medium truncate",
+                          needsReply ? "font-semibold text-text-primary" : "text-text-primary"
+                        )}>
                           {name}
                         </p>
-                        {time && (
-                          <span className="text-xs text-text-muted shrink-0 ml-2">
-                            {time}
-                          </span>
-                        )}
+                        <div className="flex items-center gap-2 shrink-0 ml-2">
+                          {needsReply && (
+                            <span className="h-2 w-2 rounded-full bg-brand-orange animate-pulse" />
+                          )}
+                          {time && (
+                            <span className={cn(
+                              "text-xs",
+                              needsReply ? "text-brand-orange font-medium" : "text-text-muted"
+                            )}>
+                              {time}
+                            </span>
+                          )}
+                        </div>
                       </div>
                       {conv.last_message_body && (
-                        <p className="text-sm text-text-secondary truncate mt-0.5">
+                        <p className={cn(
+                          "text-sm truncate mt-0.5",
+                          needsReply ? "text-text-primary font-medium" : "text-text-secondary"
+                        )}>
                           {conv.last_message_sender === "business" && "Вы: "}
                           {conv.last_message_body}
                         </p>
                       )}
                     </div>
-                    <ChevronRight className="h-4 w-4 text-text-muted shrink-0" />
+                    <ChevronRight className="h-4 w-4 text-text-muted shrink-0 ml-1" />
                   </div>
                 );
               })}

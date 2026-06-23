@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://avtogrom-serverl.onrender.com";
 
 class ApiClient {
   private token: string | null = null;
