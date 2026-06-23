@@ -97,6 +97,24 @@ export default function SettingsPage() {
     loadData();
   }, [loadData]);
 
+  async function saveProfileDirectly(newLogo: string | null, newCarousel: string[]) {
+    try {
+      await api.put("/api/business/company/profile", {
+        name: name.trim(),
+        description: description.trim(),
+        phone: phone.trim(),
+        address: address.trim(),
+        coordinates: coordinates.trim() || "55.7558,37.6173",
+        working_hours: workingHours.trim() || "Пн-Вс: 09:00 - 21:00",
+        logo_url: newLogo,
+        carousel_urls: newCarousel,
+      });
+      toast.success("Профиль сохранен на сервере");
+    } catch (err: any) {
+      toast.error("Не удалось сохранить профиль на сервере");
+    }
+  }
+
   async function handleSaveProfile() {
     if (!name.trim()) return toast.error("Название автосервиса обязательно");
     if (!phone.trim()) return toast.error("Телефон обязателен");
@@ -122,16 +140,23 @@ export default function SettingsPage() {
     }
   }
 
+  function handleLogoChange(url: string) {
+    setLogoUrl(url);
+    saveProfileDirectly(url || null, carouselUrls);
+  }
+
   function handleAddCarouselUrl(url: string) {
     if (url) {
-      setCarouselUrls((prev) => [...prev, url]);
-      toast.success("Фото добавлено в слайдер");
+      const next = [...carouselUrls, url];
+      setCarouselUrls(next);
+      saveProfileDirectly(logoUrl || null, next);
     }
   }
 
   function handleRemoveCarouselUrl(index: number) {
-    setCarouselUrls((prev) => prev.filter((_, i) => i !== index));
-    toast.success("Фото удалено из слайдера");
+    const next = carouselUrls.filter((_, i) => i !== index);
+    setCarouselUrls(next);
+    saveProfileDirectly(logoUrl || null, next);
   }
 
   async function handleAddWorkExample() {
@@ -197,7 +222,7 @@ export default function SettingsPage() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="logo">Логотип компании</Label>
-                  <ImageUpload value={logoUrl} onChange={setLogoUrl} />
+                  <ImageUpload value={logoUrl} onChange={handleLogoChange} />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="company-name">Название</Label>

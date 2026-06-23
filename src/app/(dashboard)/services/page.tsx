@@ -13,12 +13,16 @@ interface Service {
   price_fixed: boolean;
   duration_minutes: number;
   photo_url: string | null;
+  discount_tag?: string | null;
+  discount_price?: number | "" | null;
 }
 
 interface EditingService extends Service {
   description: string;
   price_from: number;
   photo_url: string;
+  discount_tag?: string | null;
+  discount_price?: number | "" | null;
 }
 
 export default function ServicesPage() {
@@ -51,6 +55,8 @@ export default function ServicesPage() {
       description: s.description ?? "",
       price_from: s.price_from ?? 0,
       photo_url: s.photo_url ?? "",
+      discount_tag: s.discount_tag ?? "",
+      discount_price: s.discount_price ?? "",
     });
     setFormOpen(true);
   }

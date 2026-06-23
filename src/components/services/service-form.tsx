@@ -37,7 +37,7 @@ interface Props {
     duration_minutes: number;
     photo_url: string;
     discount_tag?: string | null;
-    discount_price?: number | null;
+    discount_price?: number | "" | null;
   };
 }
 
