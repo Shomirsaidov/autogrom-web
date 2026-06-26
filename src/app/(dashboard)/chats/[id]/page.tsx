@@ -37,6 +37,7 @@ interface Message {
   body: string;
   photo_url?: string;
   file_url?: string;
+  video_url?: string;
   file_name?: string;
   created_at: string;
   sender_id?: string;
@@ -209,6 +210,9 @@ export default function ChatDetailPage() {
 
         if (file.type.startsWith("image/")) {
           payload.photo_base64 = base64;
+        } else if (file.type.startsWith("video/")) {
+          payload.video_base64 = base64;
+          payload.file_name = file.name;
         } else {
           payload.file_base64 = base64;
           payload.file_name = file.name;
@@ -268,7 +272,7 @@ export default function ChatDetailPage() {
         ref={fileInputRef}
         onChange={handleFileChange}
         className="hidden"
-        accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"
+        accept="image/*,video/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"
         disabled={uploading || sending}
       />
 
@@ -368,7 +372,14 @@ export default function ChatDetailPage() {
                     className="mt-1.5 rounded-lg max-w-full border border-black/5"
                   />
                 )}
-                {msg.file_url && (
+                {msg.video_url && (
+                  <video
+                    src={msg.video_url}
+                    controls
+                    className="mt-1.5 rounded-lg max-w-full max-h-[300px] border border-black/5"
+                  />
+                )}
+                {msg.file_url && !msg.video_url && (
                   <a
                     href={msg.file_url}
                     target="_blank"
