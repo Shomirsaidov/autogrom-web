@@ -46,6 +46,9 @@ interface Message {
     name: string;
     role: string;
   } | null;
+  isTemp?: boolean;
+  uploading?: boolean;
+  tempType?: "image" | "video" | "file";
 }
 
 interface ConversationDetail {
@@ -199,7 +202,24 @@ export default function ChatDetailPage() {
     const file = e.target.files?.[0];
     if (!file || uploading || sending) return;
 
-    setUploading(true);
+    const tempId = `temp-${Date.now()}`;
+    const fileType = file.type.startsWith("image/") ? "image" : file.type.startsWith("video/") ? "video" : "file";
+    
+    const tempMsg: Message = {
+      id: tempId,
+      conversation_id: params.id as string,
+      sender_role: "business",
+      body: fileType === "image" ? "📷 Фото" : fileType === "video" ? "🎥 Видео" : `📄 ${file.name}`,
+      created_at: new Date().toISOString(),
+      sender_id: user?.id,
+      isTemp: true,
+      uploading: true,
+      tempType: fileType,
+      file_name: file.name
+    };
+
+    setMessages(prev => [...prev, tempMsg]);
+
     const reader = new FileReader();
     reader.onload = async () => {
       try {
@@ -208,9 +228,9 @@ export default function ChatDetailPage() {
           sender_role: "business",
         };
 
-        if (file.type.startsWith("image/")) {
+        if (fileType === "image") {
           payload.photo_base64 = base64;
-        } else if (file.type.startsWith("video/")) {
+        } else if (fileType === "video") {
           payload.video_base64 = base64;
           payload.file_name = file.name;
         } else {
@@ -218,12 +238,12 @@ export default function ChatDetailPage() {
           payload.file_name = file.name;
         }
 
-        await api.post(`/api/conversations/${params.id}/messages`, payload);
-        await loadMessages();
+        const res = await api.post<{ message: Message }>(`/api/conversations/${params.id}/messages`, payload);
+        setMessages(prev => prev.map(m => m.id === tempId ? { ...res.message } : m));
       } catch (err) {
         console.error("Failed to upload file:", err);
+        setMessages(prev => prev.filter(m => m.id !== tempId));
       } finally {
-        setUploading(false);
         if (fileInputRef.current) fileInputRef.current.value = "";
       }
     };
@@ -360,7 +380,7 @@ export default function ChatDetailPage() {
                     {msg.sender.name}
                   </p>
                 )}
-                {msg.body && (
+                {msg.body && !(msg.isTemp && (msg.tempType === "image" || msg.tempType === "video")) && (
                   <p className="text-sm whitespace-pre-wrap break-words">
                     {msg.body}
                   </p>
@@ -369,29 +389,59 @@ export default function ChatDetailPage() {
                   <img
                     src={msg.photo_url}
                     alt="Фото"
-                    className="mt-1.5 rounded-lg max-w-full border border-black/5"
+                    className="mt-1.5 rounded-lg max-w-[240px] md:max-w-[280px] h-auto object-cover border border-black/5"
                   />
+                )}
+                {msg.isTemp && msg.tempType === "image" && (
+                  <div className="mt-1.5 w-[240px] h-[160px] rounded-lg bg-black/10 flex flex-col items-center justify-center border border-black/5 gap-2">
+                    <Loader2 className="h-6 w-6 animate-spin text-white/70" />
+                    <span className="text-[10px] text-white/70">Загрузка фото...</span>
+                  </div>
                 )}
                 {msg.video_url && (
                   <video
                     src={msg.video_url}
                     controls
-                    className="mt-1.5 rounded-lg max-w-full max-h-[300px] border border-black/5"
+                    className="mt-1.5 rounded-lg max-w-[240px] md:max-w-[280px] max-h-[300px] border border-black/5"
                   />
                 )}
-                {msg.file_url && !msg.video_url && (
-                  <a
-                    href={msg.file_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={cn(
-                      "mt-1.5 flex items-center gap-2 text-sm underline font-medium",
-                      isMe ? "text-white/90 hover:text-white" : "text-brand-blue hover:text-brand-blue/90"
+                {msg.isTemp && msg.tempType === "video" && (
+                  <div className="mt-1.5 w-[240px] h-[160px] rounded-lg bg-black/10 flex flex-col items-center justify-center border border-black/5 gap-2">
+                    <Loader2 className="h-6 w-6 animate-spin text-white/70" />
+                    <span className="text-[10px] text-white/70">Загрузка видео...</span>
+                  </div>
+                )}
+                {((msg.file_url && !msg.video_url) || (msg.isTemp && msg.tempType === "file")) && (
+                  <div className={cn(
+                    "mt-2 flex items-center justify-between gap-3 p-3 rounded-lg border text-left min-w-[200px] max-w-[280px]",
+                    isMe ? "bg-white/10 border-white/20 text-white" : "bg-black/[0.03] border-border text-text-primary"
+                  )}>
+                    <div className="flex items-center gap-2 min-w-0">
+                      <FileText className="h-5 w-5 shrink-0" />
+                      <div className="min-w-0">
+                        <p className="text-xs font-semibold truncate">
+                          {msg.file_name || "Файл"}
+                        </p>
+                      </div>
+                    </div>
+                    {msg.uploading ? (
+                      <Loader2 className="h-4 w-4 animate-spin shrink-0 text-white/70" />
+                    ) : (
+                      <a
+                        href={msg.file_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={cn(
+                          "px-3 py-1 rounded text-[11px] font-bold shadow-xs shrink-0 transition-colors",
+                          isMe 
+                            ? "bg-white text-brand-orange hover:bg-white/90" 
+                            : "bg-brand-orange text-white hover:bg-brand-orange/90"
+                        )}
+                      >
+                        Открыть
+                      </a>
                     )}
-                  >
-                    <FileText className="h-4 w-4 shrink-0" />
-                    <span className="truncate max-w-[180px]">{msg.file_name || "Файл"}</span>
-                  </a>
+                  </div>
                 )}
                 <div className="flex justify-end items-center mt-1">
                   <p
