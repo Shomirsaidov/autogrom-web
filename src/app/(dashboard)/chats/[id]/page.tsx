@@ -202,6 +202,7 @@ export default function ChatDetailPage() {
     const file = e.target.files?.[0];
     if (!file || uploading || sending) return;
 
+    setUploading(true);
     const tempId = `temp-${Date.now()}`;
     const fileType = file.type.startsWith("image/") ? "image" : file.type.startsWith("video/") ? "video" : "file";
     
@@ -240,12 +241,20 @@ export default function ChatDetailPage() {
 
         const res = await api.post<{ message: Message }>(`/api/conversations/${params.id}/messages`, payload);
         setMessages(prev => prev.map(m => m.id === tempId ? { ...res.message } : m));
-      } catch (err) {
+      } catch (err: any) {
         console.error("Failed to upload file:", err);
+        alert("Не удалось отправить файл: " + (err?.message || err || "Неизвестная ошибка"));
         setMessages(prev => prev.filter(m => m.id !== tempId));
       } finally {
+        setUploading(false);
         if (fileInputRef.current) fileInputRef.current.value = "";
       }
+    };
+    reader.onerror = () => {
+      alert("Не удалось прочитать файл с устройства");
+      setUploading(false);
+      setMessages(prev => prev.filter(m => m.id !== tempId));
+      if (fileInputRef.current) fileInputRef.current.value = "";
     };
     reader.readAsDataURL(file);
   };
