@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Wrench } from "lucide-react";
+import { api } from "@/lib/api";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -39,7 +40,7 @@ export default function LoginPage() {
       }
 
       const data = await res.json();
-      localStorage.setItem("auth_token", data.token);
+      api.setToken(data.token);
       router.push("/bookings");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Ошибка входа");
