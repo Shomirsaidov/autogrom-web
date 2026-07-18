@@ -55,7 +55,7 @@ export default function LoginPage() {
         <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-brand-orange">
           <Wrench className="h-6 w-6 text-white" />
         </div>
-        <CardTitle className="text-xl">MSERVICE</CardTitle>
+        <CardTitle className="text-xl">Autogrom</CardTitle>
         <CardDescription>Войдите в панель управления</CardDescription>
       </CardHeader>
       <CardContent>
