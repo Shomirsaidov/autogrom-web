@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -15,7 +15,6 @@ import { cn } from "@/lib/utils";
 import {
   ChevronLeft,
   ChevronRight,
-  Clock,
   Pencil,
   Save,
   Search,
@@ -66,6 +65,7 @@ export default function SchedulePage() {
     start_time: "09:00",
     end_time: "20:00",
   });
+  const gridScrollRef = useRef<HTMLDivElement>(null);
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -180,28 +180,34 @@ export default function SchedulePage() {
     month: "long",
     year: "numeric",
   }).format(month);
+  const previousMonthTitle = new Intl.DateTimeFormat("ru-RU", { month: "long" }).format(
+    new Date(month.getFullYear(), month.getMonth() - 1, 1)
+  );
+  const nextMonthTitle = new Intl.DateTimeFormat("ru-RU", { month: "long" }).format(
+    new Date(month.getFullYear(), month.getMonth() + 1, 1)
+  );
+
+  useEffect(() => {
+    const now = new Date();
+    if (
+      gridScrollRef.current &&
+      now.getFullYear() === month.getFullYear() &&
+      now.getMonth() === month.getMonth()
+    ) {
+      gridScrollRef.current.scrollLeft = Math.max(0, (now.getDate() - 16) * 72);
+    }
+  }, [month, visibleSpecialists.length]);
 
   if (loading) return <CardSkeleton count={2} />;
 
   return (
     <div className="space-y-3">
       <section className="overflow-hidden rounded-2xl border border-orange-100 bg-white shadow-sm">
-        <header className="flex flex-col gap-3 border-b border-orange-100 bg-gradient-to-r from-orange-50 to-white p-3 xl:flex-row xl:items-center">
-          <div className="flex min-w-60 items-center gap-2">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-orange text-white">
-              <Clock className="h-5 w-5" />
-            </span>
-            <div>
-              <h1 className="text-lg font-bold">График сотрудников</h1>
-              <p className="text-xs text-text-secondary">
-                Рабочие и выходные дни мастеров
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-1 flex-wrap items-center gap-2">
+        <header className="border-b border-orange-100 bg-gradient-to-r from-orange-50 to-white">
+          <div className="grid min-h-16 items-center gap-3 p-3 lg:grid-cols-[260px_1fr_260px]">
+            <div className="flex items-center gap-2">
             <Select value={selectedSpecialist} onValueChange={setSelectedSpecialist}>
-              <SelectTrigger className="w-48 bg-white">
+              <SelectTrigger className="h-11 w-full bg-white text-base">
                 <SelectValue placeholder="Все сотрудники" />
               </SelectTrigger>
               <SelectContent>
@@ -215,50 +221,43 @@ export default function SchedulePage() {
                 ))}
               </SelectContent>
             </Select>
-
-            <label className="relative hidden min-w-44 flex-1 md:block">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted" />
-              <input
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-                placeholder="Найти сотрудника"
-                className="h-10 w-full rounded-lg border bg-white pl-9 pr-3 text-sm outline-none focus:border-brand-orange"
-              />
-            </label>
-
-            <div className="mx-auto flex h-10 items-center overflow-hidden rounded-lg border border-orange-200 bg-white">
+            </div>
+            <div className="flex items-center justify-center gap-8">
               <button
-                className="grid h-full w-10 place-items-center text-brand-orange hover:bg-orange-50"
+                className="hidden items-center gap-1 text-base capitalize text-brand-orange hover:underline sm:flex"
                 onClick={() => changeMonth(-1)}
                 aria-label="Предыдущий месяц"
               >
-                <ChevronLeft className="h-5 w-5" />
+                <ChevronLeft className="h-4 w-4" /> {previousMonthTitle}
               </button>
-              <strong className="min-w-40 border-x border-orange-100 px-3 text-center capitalize">
+              <strong className="min-w-44 text-center text-xl capitalize sm:text-2xl">
                 {monthTitle}
               </strong>
               <button
-                className="grid h-full w-10 place-items-center text-brand-orange hover:bg-orange-50"
+                className="hidden items-center gap-1 text-base capitalize text-brand-orange hover:underline sm:flex"
                 onClick={() => changeMonth(1)}
                 aria-label="Следующий месяц"
               >
-                <ChevronRight className="h-5 w-5" />
+                {nextMonthTitle} <ChevronRight className="h-4 w-4" />
               </button>
             </div>
+            <label className="relative hidden lg:block">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted" />
+              <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Найти сотрудника" className="h-11 w-full rounded-lg border bg-white pl-9 pr-3 text-sm outline-none focus:border-brand-orange" />
+            </label>
           </div>
         </header>
 
-        <div className="overflow-auto">
+        <div ref={gridScrollRef} className="overflow-auto scroll-smooth">
           <div
             className="min-w-max"
             style={{
               display: "grid",
-              gridTemplateColumns: `176px repeat(${days.length}, 76px)`,
+              gridTemplateColumns: `68px repeat(${days.length}, 72px)`,
             }}
           >
-            <div className="sticky left-0 z-30 flex h-[62px] items-center gap-2 border-b border-r border-orange-100 bg-white p-3 font-semibold">
-              <Users className="h-4 w-4 text-brand-orange" />
-              Сотрудник
+            <div className="sticky left-0 z-30 flex h-[60px] items-center justify-center border-b border-r border-orange-100 bg-white" title="Сотрудники">
+              <Users className="h-5 w-5 text-brand-orange" />
             </div>
             {days.map((day) => {
               const weekend = day.getDay() === 0 || day.getDay() === 6;
@@ -268,7 +267,7 @@ export default function SchedulePage() {
                 <div
                   key={dateKey(day)}
                   className={cn(
-                    "flex h-[62px] flex-col items-center justify-center border-b border-r text-sm",
+                    "flex h-[60px] flex-col items-center justify-center border-b border-r text-sm",
                     weekend && "bg-orange-50 text-brand-orange",
                     today && "border-t-4 border-t-brand-orange bg-orange-100"
                   )}
@@ -287,15 +286,15 @@ export default function SchedulePage() {
 
             {visibleSpecialists.map((specialist) => (
               <div className="contents" key={specialist.id}>
-                <div className="sticky left-0 z-20 flex h-[68px] items-center gap-2 border-b border-r border-orange-100 bg-white px-3 shadow-[4px_0_8px_rgba(0,0,0,0.03)]">
+                <div className="sticky left-0 z-20 flex h-[66px] items-center justify-center border-b border-r border-orange-100 bg-white shadow-[4px_0_8px_rgba(0,0,0,0.03)]" title={`${specialist.full_name} — ${specialist.specialization || "Сотрудник"}`}>
                   {specialist.photo_url ? (
                     <img
                       src={specialist.photo_url}
                       alt=""
-                      className="h-10 w-10 rounded-full border-2 border-orange-200 object-cover"
+                      className="h-11 w-11 rounded-full border-2 border-orange-200 object-cover"
                     />
                   ) : (
-                    <span className="grid h-10 w-10 place-items-center rounded-full bg-orange-100 text-xs font-bold text-brand-orange">
+                    <span className="grid h-11 w-11 place-items-center rounded-full bg-orange-100 text-xs font-bold text-brand-orange">
                       {specialist.full_name
                         .split(" ")
                         .map((part) => part[0])
@@ -303,14 +302,6 @@ export default function SchedulePage() {
                         .slice(0, 2)}
                     </span>
                   )}
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold">
-                      {specialist.full_name}
-                    </p>
-                    <p className="truncate text-[10px] text-text-muted">
-                      {specialist.specialization || "Сотрудник"}
-                    </p>
-                  </div>
                 </div>
 
                 {days.map((day) => {
@@ -321,7 +312,7 @@ export default function SchedulePage() {
                       key={`${specialist.id}-${dateKey(day)}`}
                       onClick={() => openCell(specialist, day)}
                       className={cn(
-                        "group relative flex h-[68px] flex-col items-center justify-center border-b border-r bg-white text-xs transition hover:bg-orange-50",
+                        "group relative flex h-[66px] flex-col items-center justify-center border-b border-r bg-white text-sm transition hover:bg-orange-50",
                         weekend && "bg-orange-50/40"
                       )}
                     >
