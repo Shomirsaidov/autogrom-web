@@ -194,7 +194,11 @@ export default function SchedulePage() {
       now.getFullYear() === month.getFullYear() &&
       now.getMonth() === month.getMonth()
     ) {
-      gridScrollRef.current.scrollLeft = Math.max(0, (now.getDate() - 16) * 72);
+      const target = Math.max(0, (now.getDate() - 16) * 72);
+      const timer = window.setTimeout(() => {
+        gridScrollRef.current?.scrollTo({ left: target, behavior: "auto" });
+      }, 120);
+      return () => window.clearTimeout(timer);
     }
   }, [month, visibleSpecialists.length]);
 
@@ -202,7 +206,7 @@ export default function SchedulePage() {
 
   return (
     <div className="space-y-3">
-      <section className="overflow-hidden rounded-2xl border border-orange-100 bg-white shadow-sm">
+      <section className="w-full max-w-full overflow-hidden rounded-2xl border border-orange-100 bg-white shadow-sm">
         <header className="border-b border-orange-100 bg-gradient-to-r from-orange-50 to-white">
           <div className="grid min-h-16 items-center gap-3 p-3 lg:grid-cols-[260px_1fr_260px]">
             <div className="flex items-center gap-2">

@@ -65,9 +65,9 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
     <div className="flex min-h-screen">
       <ToastNotifications />
       <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
-      <div className={`flex flex-1 flex-col transition-all duration-200 ${collapsed ? "ml-16" : "ml-64"}`}>
+      <div className={`flex min-w-0 flex-1 flex-col transition-all duration-200 ${collapsed ? "ml-16" : "ml-64"}`}>
         <Header onMenuClick={() => {}} />
-        <main className="flex-1 p-4 lg:p-6">
+        <main className="min-w-0 flex-1 p-4 lg:p-6">
           {children}
         </main>
       </div>
