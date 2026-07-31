@@ -211,7 +211,7 @@ export default function SchedulePage() {
           <div className="grid min-h-16 items-center gap-3 p-3 lg:grid-cols-[260px_1fr_260px]">
             <div className="flex items-center gap-2">
             <Select value={selectedSpecialist} onValueChange={setSelectedSpecialist}>
-              <SelectTrigger className="h-11 w-full bg-white text-base">
+              <SelectTrigger className="h-10 w-full bg-white text-sm">
                 <SelectValue placeholder="Все сотрудники" />
               </SelectTrigger>
               <SelectContent>
@@ -228,17 +228,17 @@ export default function SchedulePage() {
             </div>
             <div className="flex items-center justify-center gap-8">
               <button
-                className="hidden items-center gap-1 text-base capitalize text-brand-orange hover:underline sm:flex"
+                className="hidden items-center gap-1 text-sm capitalize text-brand-orange hover:underline sm:flex"
                 onClick={() => changeMonth(-1)}
                 aria-label="Предыдущий месяц"
               >
                 <ChevronLeft className="h-4 w-4" /> {previousMonthTitle}
               </button>
-              <strong className="min-w-44 text-center text-xl capitalize sm:text-2xl">
+              <strong className="min-w-40 text-center text-lg capitalize sm:text-xl">
                 {monthTitle}
               </strong>
               <button
-                className="hidden items-center gap-1 text-base capitalize text-brand-orange hover:underline sm:flex"
+                className="hidden items-center gap-1 text-sm capitalize text-brand-orange hover:underline sm:flex"
                 onClick={() => changeMonth(1)}
                 aria-label="Следующий месяц"
               >
@@ -271,7 +271,7 @@ export default function SchedulePage() {
                 <div
                   key={dateKey(day)}
                   className={cn(
-                    "flex h-[60px] flex-col items-center justify-center border-b border-r text-sm",
+                    "flex h-[56px] flex-col items-center justify-center border-b border-r text-xs",
                     weekend && "bg-orange-50 text-brand-orange",
                     today && "border-t-4 border-t-brand-orange bg-orange-100"
                   )}
@@ -316,7 +316,7 @@ export default function SchedulePage() {
                       key={`${specialist.id}-${dateKey(day)}`}
                       onClick={() => openCell(specialist, day)}
                       className={cn(
-                        "group relative flex h-[66px] flex-col items-center justify-center border-b border-r bg-white text-sm transition hover:bg-orange-50",
+                        "group relative flex h-[60px] flex-col items-center justify-center border-b border-r bg-white text-xs transition hover:bg-orange-50",
                         weekend && "bg-orange-50/40"
                       )}
                     >
@@ -328,7 +328,7 @@ export default function SchedulePage() {
                           </span>
                         </>
                       ) : (
-                        <span className="text-text-muted">Выходной</span>
+                        <span className="whitespace-nowrap text-[11px] text-text-muted">Выходной</span>
                       )}
                       <Pencil className="absolute right-1 top-1 hidden h-3 w-3 text-brand-orange group-hover:block" />
                     </button>
