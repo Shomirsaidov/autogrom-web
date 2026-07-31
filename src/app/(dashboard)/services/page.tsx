@@ -4,6 +4,9 @@ import { useState, useEffect, useCallback } from "react";
 import { ServiceList } from "@/components/services/service-list";
 import { ServiceForm } from "@/components/services/service-form";
 import { api } from "@/lib/api";
+import dikidiServices from "@/data/dikidi-services.json";
+import { Download, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 interface Service {
   id: string;
@@ -25,11 +28,18 @@ interface EditingService extends Service {
   discount_price?: number | "" | null;
 }
 
+interface ImportResult {
+  total: number;
+  imported_count: number;
+  skipped_count: number;
+}
+
 export default function ServicesPage() {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<EditingService | null>(null);
+  const [importing, setImporting] = useState(false);
 
   const loadServices = useCallback(async () => {
     setLoading(true);
@@ -71,10 +81,41 @@ export default function ServicesPage() {
     loadServices();
   }
 
+  async function handleImport() {
+    const confirmed = window.confirm(
+      `Импортировать ${dikidiServices.length} услуг? Уже существующие названия будут пропущены.`
+    );
+    if (!confirmed) return;
+
+    setImporting(true);
+    try {
+      const result = await api.post<ImportResult>("/api/business/services/import", {
+        services: dikidiServices,
+      });
+      toast.success(
+        `Импорт завершён: добавлено ${result.imported_count}, пропущено ${result.skipped_count}`
+      );
+      await loadServices();
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Не удалось импортировать услуги");
+    } finally {
+      setImporting(false);
+    }
+  }
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold text-text-primary sm:text-2xl">Услуги</h1>
+        <button
+          type="button"
+          onClick={handleImport}
+          disabled={importing}
+          className="inline-flex h-10 items-center gap-2 rounded-lg bg-brand-orange px-4 text-sm font-semibold text-white shadow-sm transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {importing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
+          {importing ? "Импортируем…" : `Импортировать ${dikidiServices.length} услуг`}
+        </button>
       </div>
 
       <ServiceList

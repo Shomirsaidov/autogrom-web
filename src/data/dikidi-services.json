@@ -1,0 +1,2372 @@
+[
+  {
+    "title": "замена компрессора кондиционера.",
+    "description": "",
+    "price_from": 3500,
+    "price_fixed": true,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "На горячую плохо запускается",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Лампочки стоп сигнал - замена",
+    "description": "",
+    "price_from": 350,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Фарсунки - замена",
+    "description": "",
+    "price_from": 2500,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Теплообменник прокладки замена",
+    "description": "",
+    "price_from": 6000,
+    "price_fixed": false,
+    "duration_minutes": 180,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Развал-схождение",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Форсунка омывателя замена",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Кузовной ремонт",
+    "description": "",
+    "price_from": 20000,
+    "price_fixed": false,
+    "duration_minutes": 600,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Механизм переключения передач",
+    "description": "",
+    "price_from": 0,
+    "price_fixed": true,
+    "duration_minutes": 180,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Проверка автозапуск",
+    "description": "",
+    "price_from": 0,
+    "price_fixed": true,
+    "duration_minutes": 180,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Троит чек горит",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": true,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена замок двери",
+    "description": "",
+    "price_from": 2500,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Регулировка кулисы",
+    "description": "",
+    "price_from": 2500,
+    "price_fixed": false,
+    "duration_minutes": 150,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Редуктор снять / установка",
+    "description": "",
+    "price_from": 4000,
+    "price_fixed": true,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ошибка АБС",
+    "description": "",
+    "price_from": 800,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Маслоотделитель - замена",
+    "description": "",
+    "price_from": 3500,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Установка видеорегистратор",
+    "description": "",
+    "price_from": 2500,
+    "price_fixed": false,
+    "duration_minutes": 180,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Трос привода МКПП - замена",
+    "description": "",
+    "price_from": 6000,
+    "price_fixed": false,
+    "duration_minutes": 180,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ошибка неисправности ABS",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Установка защиты двигателя",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Регулировка клапанов",
+    "description": "",
+    "price_from": 6000,
+    "price_fixed": false,
+    "duration_minutes": 180,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Диагностика",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Заправка кондиционера",
+    "description": "",
+    "price_from": 2500,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Сальник привода - замена",
+    "description": "",
+    "price_from": 2000,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Масляный насос - замена",
+    "description": "",
+    "price_from": 10000,
+    "price_fixed": false,
+    "duration_minutes": 480,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Диагностика МКПП",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Снять - установка ДВС",
+    "description": "",
+    "price_from": 15000,
+    "price_fixed": false,
+    "duration_minutes": 660,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена датчик температуры охлаждающей жидкости",
+    "description": "",
+    "price_from": 600,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт топливного бака",
+    "description": "",
+    "price_from": 2000,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена АКБ",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена высоковольтных проводов",
+    "description": "",
+    "price_from": 600,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена ремня гидроусилителя руля",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Адаптация дросельной заслонки",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена лампы головного света со снятием фары",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена подрамника в сборе",
+    "description": "",
+    "price_from": 7000,
+    "price_fixed": false,
+    "duration_minutes": 360,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена вентилятора печки",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена приводного ремня",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Регулировка педали сцепления",
+    "description": "",
+    "price_from": 700,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена прокладки поддона",
+    "description": "",
+    "price_from": 2500,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена колодки ручного тормоза",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена шланга тормозного заднего",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена шланга тормозного переднего",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена бочка ГУР",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена расширительного бочка",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена заднего верхнего рычага",
+    "description": "",
+    "price_from": 2500,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена заднего нижнего рычага",
+    "description": "",
+    "price_from": 2500,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена переднего нижнего рычага",
+    "description": "",
+    "price_from": 2500,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена приводного вала в сборе",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена шпильки ступицы колеса",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена передней ступицы колеса",
+    "description": "",
+    "price_from": 2500,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена поворотного кулака",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Осмотр автомобиля",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт и чистка форсунок (бензин)",
+    "description": "",
+    "price_from": 3500,
+    "price_fixed": false,
+    "duration_minutes": 180,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Промывка радиатора",
+    "description": "",
+    "price_from": 2000,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт глушителя",
+    "description": "",
+    "price_from": 2000,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт карданного вала",
+    "description": "",
+    "price_from": 3500,
+    "price_fixed": false,
+    "duration_minutes": 240,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена ремня генератора",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт блоков управления АКПП",
+    "description": "",
+    "price_from": 15000,
+    "price_fixed": false,
+    "duration_minutes": 300,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт гидроблока АКПП",
+    "description": "",
+    "price_from": 20000,
+    "price_fixed": false,
+    "duration_minutes": 600,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Диагностика кондиционера",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Диагностика системы зажигания",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Шиномонтаж",
+    "description": "",
+    "price_from": 1800,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Диагностика АКПП",
+    "description": "",
+    "price_from": 2000,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт АКПП",
+    "description": "",
+    "price_from": 30000,
+    "price_fixed": false,
+    "duration_minutes": 600,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена шлейфа рулевой колонки",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Диагностика по комментарию",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена маховика",
+    "description": "",
+    "price_from": 5000,
+    "price_fixed": false,
+    "duration_minutes": 300,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Маслосьемные колпачки - замена",
+    "description": "",
+    "price_from": 15000,
+    "price_fixed": false,
+    "duration_minutes": 660,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Поршневые кольца - замена",
+    "description": "",
+    "price_from": 15000,
+    "price_fixed": false,
+    "duration_minutes": 660,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Подшипник муфты кондиционера - замена",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "ШРУС наружний - замена",
+    "description": "",
+    "price_from": 1800,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "ШРУС внутренний - замена",
+    "description": "",
+    "price_from": 1800,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Патрубки печки - замена",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена крестовины",
+    "description": "",
+    "price_from": 2000,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Диагностика течи масла",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Снятие и установка двигателя",
+    "description": "",
+    "price_from": 15000,
+    "price_fixed": false,
+    "duration_minutes": 660,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена вакуумного усилителя тормозов",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Шиномонтаж",
+    "description": "",
+    "price_from": 1800,
+    "price_fixed": true,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Снятие и установка панели приборов",
+    "description": "",
+    "price_from": 5000,
+    "price_fixed": false,
+    "duration_minutes": 660,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Снятие и установка переднего бампера",
+    "description": "",
+    "price_from": 2000,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Подтяжка приводного ремня",
+    "description": "",
+    "price_from": 600,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена L-зонда (кислородный датчик)",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена датчика температуры охлаждающей жидкости",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена датчика уровня охлаждающей жидкости",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена датчика уровня масла",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена датчика скорости",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена датчика распредвала",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена датчика коленвала",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 110,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена датчика заднего хода",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена датчика детонации",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена датчика давления масла",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Чистка клапана EGR",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Снятие и установка магнитолы",
+    "description": "",
+    "price_from": 2000,
+    "price_fixed": false,
+    "duration_minutes": 100,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Снятие и установка панели приборов",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт панели приборов",
+    "description": "",
+    "price_from": 2000,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт блока управления двигателя",
+    "description": "",
+    "price_from": 2500,
+    "price_fixed": false,
+    "duration_minutes": 150,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт замка зажигания",
+    "description": "",
+    "price_from": 2000,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Снятие и установка замка зажигания",
+    "description": "",
+    "price_from": 4000,
+    "price_fixed": false,
+    "duration_minutes": 240,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Диагностика мотора печки",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена предохранителя",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт системы зеркал с электроприводом",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт парктроника",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт электростеклоподъемника",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт системы центрального замка",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена датчика положения коленвала",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена датчика ABS",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Снятие и установка стартера или генератора",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замер тока утечки",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена глушителя",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Диагностика выхлопной системы",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Диагностика топливной системы",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена датчика уровня топлива",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена топливного насоса",
+    "description": "",
+    "price_from": 2500,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Поиск течи антифриза",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Диагностика системы охлаждения",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Регулировка стояночного тормоза",
+    "description": "",
+    "price_from": 1200,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена тормозного суппорта",
+    "description": "",
+    "price_from": 1300,
+    "price_fixed": false,
+    "duration_minutes": 80,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Прокачка тормозной системы",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена датчика износа колодок",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена шлангов ГУР",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена насоса ГУР",
+    "description": "",
+    "price_from": 2500,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена заднего подшипника ступицы",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена передней пружины",
+    "description": "",
+    "price_from": 2000,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена задней пружины",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена заднего амортизатора",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена рычага",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена моторчика печки",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена сайлентблока задней балки",
+    "description": "",
+    "price_from": 5000,
+    "price_fixed": false,
+    "duration_minutes": 300,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена заднего сайлентблока переднего рычага",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 100,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена переднего сайлентблока переднего рычага",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Диагностика тормозной системы",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена масла в муфте включения полного привода",
+    "description": "",
+    "price_from": 3500,
+    "price_fixed": false,
+    "duration_minutes": 180,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Шприцевание карданных валов, соединений и крестовин",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена прокладки выпускного коллектора",
+    "description": "",
+    "price_from": 1200,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена прокладки впускного коллектора",
+    "description": "",
+    "price_from": 1200,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена прокладки ГБЦ",
+    "description": "",
+    "price_from": 10000,
+    "price_fixed": false,
+    "duration_minutes": 270,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена боковой опоры двигателя",
+    "description": "",
+    "price_from": 1200,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена задней опоры двигателя",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена передней опоры двигателя",
+    "description": "",
+    "price_from": 1200,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена сальника переднего коленвала",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена ролика навесного борудования",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 80,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена ремня навесного оборудования",
+    "description": "",
+    "price_from": 800,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена цепи ГРМ",
+    "description": "",
+    "price_from": 5000,
+    "price_fixed": false,
+    "duration_minutes": 300,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена прокладки клапанной крышки",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена ДМРВ (датчика массового расхода воздуха)",
+    "description": "",
+    "price_from": 800,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Антидождь на ветровое стекло",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена ТНВД (топливный насос высокого давления)",
+    "description": "",
+    "price_from": 2500,
+    "price_fixed": false,
+    "duration_minutes": 155,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена топливной форсунки",
+    "description": "",
+    "price_from": 3500,
+    "price_fixed": false,
+    "duration_minutes": 150,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена сальников коробки передач (механика/автомат/вариатор)",
+    "description": "",
+    "price_from": 5000,
+    "price_fixed": false,
+    "duration_minutes": 300,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена сальников двигателя",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт генератора",
+    "description": "",
+    "price_from": 2500,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт стартера",
+    "description": "",
+    "price_from": 2500,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Чистка и смазка направляющих тормозного суппорта",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 45,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Промывка топливного бака",
+    "description": "",
+    "price_from": 4000,
+    "price_fixed": false,
+    "duration_minutes": 220,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Чистка впускного коллектора",
+    "description": "",
+    "price_from": 2000,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена масла в заднем мосту",
+    "description": "",
+    "price_from": 700,
+    "price_fixed": false,
+    "duration_minutes": 50,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена масла в раздаточной коробке",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена шаровой опоры",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена задних тормозных дисков",
+    "description": "",
+    "price_from": 1800,
+    "price_fixed": false,
+    "duration_minutes": 110,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена передних тормозных дисков",
+    "description": "",
+    "price_from": 1800,
+    "price_fixed": false,
+    "duration_minutes": 110,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Снятие и установка АКПП",
+    "description": "",
+    "price_from": 8000,
+    "price_fixed": false,
+    "duration_minutes": 420,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена сцепления",
+    "description": "",
+    "price_from": 5000,
+    "price_fixed": false,
+    "duration_minutes": 300,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена втулок стабилизатора",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена задних стоек стабилизатора",
+    "description": "",
+    "price_from": 800,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена рулевого наконечника",
+    "description": "",
+    "price_from": 800,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена лампы ПТФ",
+    "description": "",
+    "price_from": 300,
+    "price_fixed": false,
+    "duration_minutes": 20,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена лампы указателя поворота",
+    "description": "",
+    "price_from": 100,
+    "price_fixed": false,
+    "duration_minutes": 20,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена лампы дальнего света",
+    "description": "",
+    "price_from": 200,
+    "price_fixed": false,
+    "duration_minutes": 20,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена наружнего пыльника ШРУСа",
+    "description": "",
+    "price_from": 1200,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена катушки зажигания",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена лампы стоп сигнала",
+    "description": "",
+    "price_from": 200,
+    "price_fixed": false,
+    "duration_minutes": 20,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена трапеции",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 35,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена рабочего цилиндра сцепления",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена задних тормозных цилиндров",
+    "description": "",
+    "price_from": 1200,
+    "price_fixed": false,
+    "duration_minutes": 105,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена тормозных барабанов",
+    "description": "",
+    "price_from": 1800,
+    "price_fixed": false,
+    "duration_minutes": 100,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена ремкомплекта переднего тормозного суппорта , обзор смазок напра…",
+    "description": "",
+    "price_from": 600,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена бензонасоса и чистки топливного бака",
+    "description": "",
+    "price_from": 3500,
+    "price_fixed": false,
+    "duration_minutes": 175,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Смазка шлицевых соединений и крестовин карданного вала",
+    "description": "",
+    "price_from": 700,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена масла в вариаторе (со снятием поддона)",
+    "description": "",
+    "price_from": 2600,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена масла раздаточной коробке",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена масла в заднем редукторе",
+    "description": "",
+    "price_from": 800,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена масла в переднем редукторе",
+    "description": "",
+    "price_from": 800,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена масла в МКПП",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена масла в АКПП со снятием масляного поддона",
+    "description": "",
+    "price_from": 2500,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена масла в АКПП без снятия масляного поддона",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена жидкости ГУРа",
+    "description": "",
+    "price_from": 800,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена охлаждающей жидкости с промывкой системы",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена охлаждающей жидкости",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Регулировка клапанов",
+    "description": "",
+    "price_from": 2500,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена пыльника/отбойника амортизатора (за 1 ось)",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замены опоры стойки/амортизатора (за 1 ось)",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена пружины/рессоры подвески (за 1 ось)",
+    "description": "",
+    "price_from": 1490,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Плановое техническое обслуживание (ТО)",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Поиск течи масла",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 20,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена сальника заднего коленвала",
+    "description": "",
+    "price_from": 4000,
+    "price_fixed": false,
+    "duration_minutes": 240,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена сальник распредвала",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт электрооборудования",
+    "description": "",
+    "price_from": 2000,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Поиск неисправности электрооборудования",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Слесарные работы",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Регулировка замка двери",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 20,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена внутреннего пыльника ШРУСа",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена гофры глушителя",
+    "description": "",
+    "price_from": 2000,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт механической коробки передач",
+    "description": "",
+    "price_from": 15000,
+    "price_fixed": true,
+    "duration_minutes": 160,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена задних тормозных колодок",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Чистка дроссельной заслонки",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт генератора",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 120,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена ГРМ",
+    "description": "",
+    "price_from": 3500,
+    "price_fixed": false,
+    "duration_minutes": 240,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена лампы ближнего света",
+    "description": "",
+    "price_from": 200,
+    "price_fixed": false,
+    "duration_minutes": 20,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Ремонт двигателя",
+    "description": "",
+    "price_from": 20000,
+    "price_fixed": false,
+    "duration_minutes": 720,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Диагностика ходовой части",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена рулевой тяги",
+    "description": "",
+    "price_from": 800,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена передних стоек стабилизатора",
+    "description": "",
+    "price_from": 600,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена рулевой рейки",
+    "description": "",
+    "price_from": 2700,
+    "price_fixed": false,
+    "duration_minutes": 180,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена бокового зеркала",
+    "description": "",
+    "price_from": 1200,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена радиатора печки",
+    "description": "",
+    "price_from": 4000,
+    "price_fixed": false,
+    "duration_minutes": 245,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена свечей зажигания",
+    "description": "",
+    "price_from": 600,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена термостата",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена переднего подшипника ступицы",
+    "description": "",
+    "price_from": 1200,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена тормозного шланга",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена выжимного подшипника сцепления",
+    "description": "",
+    "price_from": 4000,
+    "price_fixed": false,
+    "duration_minutes": 240,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена главного тормозного цилиндра",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена помпы",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена радиатора охлаждения",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 85,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена комплекта патрубков системы охлаждения ВАЗ 2114",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена тросов стояночного тормоза",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена ШРУСа",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 50,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена жидкости ГУР",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена тормозной жидкости",
+    "description": "",
+    "price_from": 800,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Комплексная проверка автомобиля",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Диагностика автомобиля",
+    "description": "",
+    "price_from": 600,
+    "price_fixed": false,
+    "duration_minutes": 30,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена амортизатора подвески перед (за 1 ось)",
+    "description": "",
+    "price_from": 1490,
+    "price_fixed": false,
+    "duration_minutes": 90,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена передних тормозных колодок",
+    "description": "",
+    "price_from": 1000,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена топливного фильтра",
+    "description": "",
+    "price_from": 800,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена топливного фильтра",
+    "description": "",
+    "price_from": 1500,
+    "price_fixed": false,
+    "duration_minutes": 60,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена салонного фильтра",
+    "description": "",
+    "price_from": 100,
+    "price_fixed": false,
+    "duration_minutes": 10,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена воздушного фильтра",
+    "description": "",
+    "price_from": 100,
+    "price_fixed": false,
+    "duration_minutes": 10,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  },
+  {
+    "title": "Замена масла в двигателе",
+    "description": "",
+    "price_from": 500,
+    "price_fixed": false,
+    "duration_minutes": 40,
+    "photo_url": "",
+    "discount_tag": null,
+    "discount_price": null
+  }
+]
