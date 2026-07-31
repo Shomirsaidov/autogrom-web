@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import type { Booking } from "./bookings-page-types";
 import { BOOKING_STATUS_COLORS, BOOKING_STATUS_LABELS } from "@/lib/constants";
+import { Check, Phone, X } from "lucide-react";
 
 interface Specialist {
   id: string;
@@ -17,10 +18,11 @@ interface Props {
   date: string;
   onBookingClick: (id: string) => void;
   onSlotClick: (specialistId: string, time: string) => void;
+  onStatusChange: (id: string, status: string) => void;
 }
 
-const HOURS = Array.from({ length: 12 }, (_, i) => i + 8); // 08:00 - 19:00
-const ROW_HEIGHT = 60;
+const HOURS = Array.from({ length: 14 }, (_, i) => i + 8);
+const ROW_HEIGHT = 72;
 
 function getBookingPosition(booking: Booking) {
   const d = new Date(booking.scheduled_at);
@@ -30,29 +32,50 @@ function getBookingPosition(booking: Booking) {
   return { top, height };
 }
 
-export function DayView({ bookings, specialists, date, onBookingClick, onSlotClick }: Props) {
+export function DayView({
+  bookings,
+  specialists,
+  date,
+  onBookingClick,
+  onSlotClick,
+  onStatusChange,
+}: Props) {
   const todayStr = new Date().toISOString().slice(0, 10);
   const isToday = date === todayStr;
+  const now = new Date();
+  const nowTop =
+    ((now.getHours() * 60 + now.getMinutes() - 8 * 60) / 60) * ROW_HEIGHT;
 
   return (
-    <div className="overflow-auto rounded-lg border">
-      <div className="min-w-[600px]">
+    <div className="overflow-auto bg-white">
+      <div className="min-w-[760px]">
         {/* Header */}
-        <div className="flex border-b bg-surface-muted">
-          <div className="w-16 shrink-0 border-r" />
+        <div className="sticky top-0 z-20 flex border-b border-orange-100 bg-white shadow-sm">
+          <div className="w-20 shrink-0 border-r border-orange-100" />
           {specialists.map((s) => (
             <div
               key={s.id}
-              className="flex flex-1 items-center justify-center gap-2 px-3 py-3 border-r last:border-r-0"
+              className="flex min-w-44 flex-1 items-center justify-center gap-2 border-r border-orange-100 px-3 py-3 last:border-r-0"
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-orange text-xs font-semibold text-white">
-                {s.full_name
+              {s.photo_url ? (
+                <img
+                  src={s.photo_url}
+                  alt=""
+                  className="h-10 w-10 rounded-full border-2 border-orange-200 object-cover"
+                />
+              ) : (
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 text-xs font-bold text-brand-orange">
+                  {s.full_name
                   .split(" ")
                   .map((n) => n[0])
                   .join("")
                   .slice(0, 2)}
+                </div>
+              )}
+              <div className="min-w-0">
+                <p className="truncate text-sm font-semibold">{s.full_name}</p>
+                <p className="text-[10px] text-text-muted">08:00 — 21:00</p>
               </div>
-              <span className="text-sm font-medium truncate">{s.full_name}</span>
             </div>
           ))}
         </div>
@@ -63,18 +86,18 @@ export function DayView({ bookings, specialists, date, onBookingClick, onSlotCli
           {HOURS.map((hour) => (
             <div
               key={hour}
-              className="flex border-b last:border-b-0"
+              className="flex border-b border-orange-50 last:border-b-0"
               style={{ height: ROW_HEIGHT }}
             >
-              <div className="flex w-16 shrink-0 items-start justify-center border-r pt-1">
-                <span className="text-xs text-text-muted">
+              <div className="flex w-20 shrink-0 items-start justify-center border-r border-orange-100 pt-2">
+                <span className="text-sm font-semibold text-text-secondary">
                   {String(hour).padStart(2, "0")}:00
                 </span>
               </div>
               {specialists.map((s) => (
                 <div
                   key={s.id}
-                  className="flex-1 border-r last:border-r-0 relative cursor-pointer hover:bg-surface-hover transition-colors"
+                  className="relative min-w-44 flex-1 cursor-pointer border-r border-orange-100 bg-[linear-gradient(to_bottom,transparent_49%,#fff1e8_50%,transparent_51%)] transition-colors last:border-r-0 hover:bg-orange-50"
                   onClick={() => {
                     const time = `${String(hour).padStart(2, "0")}:00`;
                     onSlotClick(s.id, time);
@@ -83,6 +106,15 @@ export function DayView({ bookings, specialists, date, onBookingClick, onSlotCli
               ))}
             </div>
           ))}
+
+          {isToday && nowTop >= 0 && nowTop <= HOURS.length * ROW_HEIGHT && (
+            <div
+              className="pointer-events-none absolute left-20 right-0 z-10 border-t-2 border-brand-orange"
+              style={{ top: nowTop }}
+            >
+              <span className="absolute -left-1.5 -top-1.5 h-3 w-3 rounded-full bg-brand-orange" />
+            </div>
+          )}
 
           {/* Booking chips */}
           {bookings.map((booking) => {
@@ -106,25 +138,26 @@ export function DayView({ bookings, specialists, date, onBookingClick, onSlotCli
               <div
                 key={booking.id}
                 className={cn(
-                  "absolute left-0 right-2 rounded border-l-4 px-2 py-1 cursor-pointer hover:opacity-90 transition-opacity overflow-hidden",
+                  "absolute z-[5] cursor-pointer overflow-hidden rounded-xl border border-orange-200 border-l-4 px-2 py-1.5 shadow-sm transition hover:shadow-md",
                   statusColor
                 )}
                 style={{
                   top,
                   height: Math.max(height, 24),
-                  left: `calc(64px + ${specIndex} * (100% - 64px) / ${specialists.length})`,
-                  width: `calc((100% - 64px) / ${specialists.length} - 8px)`,
+                  left: `calc(80px + ${specIndex} * (100% - 80px) / ${specialists.length} + 4px)`,
+                  width: `calc((100% - 80px) / ${specialists.length} - 8px)`,
                 }}
                 onClick={() => onBookingClick(booking.id)}
               >
-                <p className="text-xs font-medium truncate">
+                <p className="truncate text-xs font-bold">
                   {booking.customer_name}
                 </p>
                 <p className="text-[10px] text-text-secondary truncate">
                   {booking.service_name}
                 </p>
                 {height >= 40 && booking.customer_phone && (
-                  <p className="text-[10px] text-text-secondary truncate">
+                  <p className="flex items-center gap-1 truncate text-[10px] text-text-secondary">
+                    <Phone className="h-3 w-3" />
                     {booking.customer_phone}
                   </p>
                 )}
@@ -137,6 +170,40 @@ export function DayView({ bookings, specialists, date, onBookingClick, onSlotCli
                   >
                     {BOOKING_STATUS_LABELS[booking.status]}
                   </Badge>
+                )}
+                {booking.status === "pending" && height >= 65 && (
+                  <div
+                    className="mt-1 flex gap-1"
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    <button
+                      className="flex h-6 flex-1 items-center justify-center gap-1 rounded bg-brand-orange px-1 text-[9px] font-semibold text-white hover:bg-orange-600"
+                      onClick={() => onStatusChange(booking.id, "confirmed")}
+                    >
+                      <Check className="h-3 w-3" />
+                      Принять
+                    </button>
+                    <button
+                      className="flex h-6 flex-1 items-center justify-center gap-1 rounded border border-red-200 bg-white px-1 text-[9px] font-semibold text-red-600 hover:bg-red-50"
+                      onClick={() => onStatusChange(booking.id, "cancelled")}
+                    >
+                      <X className="h-3 w-3" />
+                      Отказать
+                    </button>
+                  </div>
+                )}
+                {booking.status === "confirmed" && height >= 65 && (
+                  <div
+                    className="mt-1"
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    <button
+                      className="h-6 w-full rounded border border-red-200 bg-white text-[9px] font-semibold text-red-600 hover:bg-red-50"
+                      onClick={() => onStatusChange(booking.id, "cancelled")}
+                    >
+                      Отменить запись
+                    </button>
+                  </div>
                 )}
               </div>
             );

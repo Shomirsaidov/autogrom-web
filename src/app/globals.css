@@ -4,7 +4,7 @@
 
 @theme inline {
   --color-brand-orange: #FF4D06;
-  --color-brand-blue: #2057DF;
+  --color-brand-blue: #FF4D06;
 
   --color-surface: #FFFFFF;
   --color-surface-muted: #F5F5F7;
@@ -19,7 +19,7 @@
   --color-danger: #DC2626;
   --color-success: #16A34A;
   --color-warning: #F59E0B;
-  --color-info: #2057DF;
+  --color-info: #FF4D06;
 
   --color-status-pending: #F59E0B;
   --color-status-pending-bg: #FEF3C7;
@@ -27,8 +27,8 @@
   --color-status-confirmed-bg: #DCFCE7;
   --color-status-cancelled: #DC2626;
   --color-status-cancelled-bg: #FEE2E2;
-  --color-status-progress: #2057DF;
-  --color-status-progress-bg: #DBEAFE;
+  --color-status-progress: #EA580C;
+  --color-status-progress-bg: #FFEDD5;
   --color-status-completed: #6B7280;
   --color-status-completed-bg: #F3F4F6;
 
@@ -38,7 +38,7 @@
   --color-primary: var(--color-brand-orange);
   --color-primary-foreground: #FFFFFF;
 
-  --color-secondary: var(--color-brand-blue);
+  --color-secondary: var(--color-brand-orange);
   --color-secondary-foreground: #FFFFFF;
 
   --color-accent: var(--color-surface-muted);
@@ -56,7 +56,7 @@
   --color-popover: var(--color-surface);
   --color-popover-foreground: var(--color-text-primary);
 
-  --color-ring: var(--color-brand-blue);
+  --color-ring: var(--color-brand-orange);
   --color-input: var(--color-border);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;

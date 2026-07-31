@@ -1,9 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -13,9 +11,17 @@ import {
 } from "@/components/ui/select";
 import { CardSkeleton } from "@/components/shared/loading-skeleton";
 import { api } from "@/lib/api";
-import { DAY_NAMES_FULL } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { Clock, Save, Trash2, Search } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Clock,
+  Pencil,
+  Save,
+  Search,
+  Users,
+  X,
+} from "lucide-react";
 import { toast } from "sonner";
 
 interface ScheduleEntry {
@@ -24,12 +30,24 @@ interface ScheduleEntry {
   day_of_week: number;
   start_time: string;
   end_time: string;
-  specialist?: { full_name: string };
 }
 
 interface Specialist {
   id: string;
   full_name: string;
+  photo_url?: string | null;
+  specialization?: string | null;
+}
+
+interface ScheduleEdit {
+  start_time: string;
+  end_time: string;
+}
+
+const WEEKDAY_SHORT = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"];
+
+function dateKey(date: Date) {
+  return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
 }
 
 export default function SchedulePage() {
@@ -37,284 +55,376 @@ export default function SchedulePage() {
   const [specialists, setSpecialists] = useState<Specialist[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [month, setMonth] = useState(() => new Date());
+  const [selectedSpecialist, setSelectedSpecialist] = useState("all");
   const [search, setSearch] = useState("");
-  const [selectedSpecialist, setSelectedSpecialist] = useState<string>("all");
-  const [editMode, setEditMode] = useState(false);
-
-  // Editable state: map of "specialist_id_day_of_week" -> { start_time, end_time, id }
-  const [edits, setEdits] = useState<Record<string, { start_time: string; end_time: string; id?: string }>>({});
-
-  const filteredSpecialists = specialists.filter((s) =>
-    s.full_name.toLowerCase().includes(search.toLowerCase())
-  );
+  const [selectedCell, setSelectedCell] = useState<{
+    specialist: Specialist;
+    date: Date;
+  } | null>(null);
+  const [cellEdit, setCellEdit] = useState<ScheduleEdit>({
+    start_time: "09:00",
+    end_time: "20:00",
+  });
 
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
-      const [schedRes, specRes] = await Promise.all([
+      const [scheduleResponse, specialistResponse] = await Promise.all([
         api.get<{ schedules: ScheduleEntry[] }>("/api/business/schedules"),
         api.get<{ specialists: Specialist[] }>("/api/business/specialists"),
       ]);
-      setSchedules(schedRes.schedules);
-      setSpecialists(specRes.specialists);
-    } catch {}
-    setLoading(false);
+      setSchedules(scheduleResponse.schedules || []);
+      setSpecialists(specialistResponse.specialists || []);
+    } catch {
+      toast.error("Не удалось загрузить график");
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
     loadData();
   }, [loadData]);
 
-  function enterEditMode() {
-    const newEdits: Record<string, { start_time: string; end_time: string; id?: string }> = {};
-    for (const s of schedules) {
-      const key = `${s.specialist_id}_${s.day_of_week}`;
-      newEdits[key] = {
-        start_time: s.start_time.slice(0, 5),
-        end_time: s.end_time.slice(0, 5),
-        id: s.id,
-      };
+  const days = useMemo(() => {
+    const year = month.getFullYear();
+    const monthIndex = month.getMonth();
+    return Array.from(
+      { length: new Date(year, monthIndex + 1, 0).getDate() },
+      (_, index) => new Date(year, monthIndex, index + 1)
+    );
+  }, [month]);
+
+  const visibleSpecialists = specialists.filter((specialist) => {
+    const matchesSelect =
+      selectedSpecialist === "all" || specialist.id === selectedSpecialist;
+    const matchesSearch = specialist.full_name
+      .toLowerCase()
+      .includes(search.trim().toLowerCase());
+    return matchesSelect && matchesSearch;
+  });
+
+  function getSchedule(specialistId: string, day: Date) {
+    return schedules.find(
+      (schedule) =>
+        schedule.specialist_id === specialistId &&
+        schedule.day_of_week === day.getDay()
+    );
+  }
+
+  function openCell(specialist: Specialist, day: Date) {
+    const current = getSchedule(specialist.id, day);
+    setCellEdit({
+      start_time: current?.start_time.slice(0, 5) || "09:00",
+      end_time: current?.end_time.slice(0, 5) || "20:00",
+    });
+    setSelectedCell({ specialist, date: day });
+  }
+
+  async function saveCell(remove = false) {
+    if (!selectedCell) return;
+    if (
+      !remove &&
+      (!cellEdit.start_time ||
+        !cellEdit.end_time ||
+        cellEdit.start_time >= cellEdit.end_time)
+    ) {
+      toast.error("Проверьте время начала и окончания");
+      return;
     }
-    setEdits(newEdits);
-    setEditMode(true);
-  }
 
-  function cancelEdit() {
-    setEdits({});
-    setEditMode(false);
-  }
+    const weekday = selectedCell.date.getDay();
+    const next = schedules
+      .filter(
+        (entry) =>
+          !(
+            entry.specialist_id === selectedCell.specialist.id &&
+            entry.day_of_week === weekday
+          )
+      )
+      .map((entry) => ({
+        specialist_id: entry.specialist_id,
+        day_of_week: entry.day_of_week,
+        start_time: entry.start_time.slice(0, 5),
+        end_time: entry.end_time.slice(0, 5),
+      }));
 
-  function setCellTime(
-    specialistId: string,
-    dayOfWeek: number,
-    field: "start_time" | "end_time",
-    value: string
-  ) {
-    const key = `${specialistId}_${dayOfWeek}`;
-    setEdits((prev) => ({
-      ...prev,
-      [key]: { ...prev[key], [field]: value },
-    }));
-  }
-
-  function applyTemplate(template: "all" | "weekdays" | "custom") {
-    const newEdits = { ...edits };
-    const days = template === "all" ? [0, 1, 2, 3, 4, 5, 6] : [1, 2, 3, 4, 5];
-
-    for (const spec of specialists) {
-      for (const d of days) {
-        const key = `${spec.id}_${d}`;
-        if (!newEdits[key]) {
-          newEdits[key] = { start_time: "09:00", end_time: "19:00" };
-        }
-      }
+    if (!remove) {
+      next.push({
+        specialist_id: selectedCell.specialist.id,
+        day_of_week: weekday,
+        start_time: cellEdit.start_time,
+        end_time: cellEdit.end_time,
+      });
     }
-    setEdits(newEdits);
-  }
 
-  async function saveSchedule() {
     setSaving(true);
     try {
-      const entries = Object.entries(edits)
-        .filter(([_, v]) => v.start_time && v.end_time)
-        .map(([key, v]) => {
-          const lastSep = key.lastIndexOf("_");
-          const specialistId = key.slice(0, lastSep);
-          const dayOfWeek = key.slice(lastSep + 1);
-          return {
-            specialist_id: specialistId,
-            day_of_week: Number(dayOfWeek),
-            start_time: v.start_time.slice(0, 5),
-            end_time: v.end_time.slice(0, 5),
-          };
-        });
-
-      await api.post("/api/business/schedules", { entries });
-      toast.success("График сохранён");
-      setEditMode(false);
-      loadData();
+      await api.post("/api/business/schedules", { entries: next });
+      toast.success(remove ? "Выходной сохранён" : "Рабочее время сохранено");
+      setSelectedCell(null);
+      await loadData();
     } catch {
-      toast.error("Ошибка при сохранении графика");
+      toast.error("Не удалось сохранить график");
     } finally {
       setSaving(false);
     }
   }
 
+  function changeMonth(delta: number) {
+    setMonth((current) => new Date(current.getFullYear(), current.getMonth() + delta, 1));
+  }
+
+  const monthTitle = new Intl.DateTimeFormat("ru-RU", {
+    month: "long",
+    year: "numeric",
+  }).format(month);
+
   if (loading) return <CardSkeleton count={2} />;
 
-  const daysToShow = [0, 1, 2, 3, 4, 5, 6];
-  const displaySpecialists = selectedSpecialist === "all" ? filteredSpecialists : specialists.filter((s) => s.id === selectedSpecialist);
-
-  function getSchedule(specialistId: string, dayOfWeek: number): ScheduleEntry | undefined {
-    return schedules.find(
-      (s) => s.specialist_id === specialistId && s.day_of_week === dayOfWeek
-    );
-  }
-
-  function getEditValue(specialistId: string, dayOfWeek: number) {
-    const key = `${specialistId}_${dayOfWeek}`;
-    return edits[key];
-  }
-
   return (
-    <div className="space-y-4">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-xl font-bold text-text-primary sm:text-2xl">График сотрудников</h1>
-        <div className="flex items-center gap-2">
-          {editMode ? (
-            <>
-              <Button variant="outline" onClick={cancelEdit} size="sm">
-                Отмена
-              </Button>
-              <Button onClick={saveSchedule} disabled={saving} size="sm">
-                <Save className="h-4 w-4 mr-1" />
-                {saving ? "Сохранение..." : "Сохранить"}
-              </Button>
-            </>
-          ) : (
-            <Button onClick={enterEditMode} size="sm">
-              <Clock className="h-4 w-4 mr-1" />
-              Редактировать
-            </Button>
-          )}
-        </div>
-      </div>
-
-      {/* Filters */}
-      <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-        <Select value={selectedSpecialist} onValueChange={setSelectedSpecialist}>
-          <SelectTrigger className="w-40 sm:w-48">
-            <SelectValue placeholder="Все сотрудники" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Все сотрудники</SelectItem>
-            {specialists.map((s) => (
-              <SelectItem key={s.id} value={s.id}>
-                {s.full_name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        <div className="relative flex-1 min-w-[140px] max-w-xs">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted" />
-          <Input
-            placeholder="Поиск..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="pl-9"
-          />
-        </div>
-
-        {editMode && (
-          <div className="flex gap-1 sm:gap-2 sm:ml-auto">
-            <Button variant="outline" size="sm" onClick={() => applyTemplate("all")}>
-              Все дни
-            </Button>
-            <Button variant="outline" size="sm" onClick={() => applyTemplate("weekdays")}>
-              Будни
-            </Button>
-          </div>
-        )}
-      </div>
-
-      {/* Schedule Grid */}
-      <Card>
-        <CardContent className="p-0 overflow-auto">
-          <div className="min-w-[700px]">
-            {/* Header */}
-            <div className="flex border-b bg-surface-muted">
-              <div className="w-44 shrink-0 p-3 text-sm font-medium text-text-secondary">
-                Сотрудник
-              </div>
-              {daysToShow.map((day) => (
-                <div
-                  key={day}
-                  className="flex-1 p-3 text-center text-sm font-medium text-text-secondary border-l"
-                >
-                  {DAY_NAMES_FULL[day]}
-                </div>
-              ))}
+    <div className="space-y-3">
+      <section className="overflow-hidden rounded-2xl border border-orange-100 bg-white shadow-sm">
+        <header className="flex flex-col gap-3 border-b border-orange-100 bg-gradient-to-r from-orange-50 to-white p-3 xl:flex-row xl:items-center">
+          <div className="flex min-w-60 items-center gap-2">
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-orange text-white">
+              <Clock className="h-5 w-5" />
+            </span>
+            <div>
+              <h1 className="text-lg font-bold">График сотрудников</h1>
+              <p className="text-xs text-text-secondary">
+                Рабочие и выходные дни мастеров
+              </p>
             </div>
+          </div>
 
-            {/* Rows */}
-            {displaySpecialists.length === 0 && (
-              <div className="p-8 text-center text-sm text-text-secondary">
-                {specialists.length === 0
-                  ? "Нет сотрудников. Добавьте сотрудников в настройках."
-                  : "Нет сотрудников по заданному фильтру."}
+          <div className="flex flex-1 flex-wrap items-center gap-2">
+            <Select value={selectedSpecialist} onValueChange={setSelectedSpecialist}>
+              <SelectTrigger className="w-48 bg-white">
+                <SelectValue placeholder="Все сотрудники" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">
+                  Все сотрудники ({specialists.length})
+                </SelectItem>
+                {specialists.map((specialist) => (
+                  <SelectItem key={specialist.id} value={specialist.id}>
+                    {specialist.full_name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <label className="relative hidden min-w-44 flex-1 md:block">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted" />
+              <input
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder="Найти сотрудника"
+                className="h-10 w-full rounded-lg border bg-white pl-9 pr-3 text-sm outline-none focus:border-brand-orange"
+              />
+            </label>
+
+            <div className="mx-auto flex h-10 items-center overflow-hidden rounded-lg border border-orange-200 bg-white">
+              <button
+                className="grid h-full w-10 place-items-center text-brand-orange hover:bg-orange-50"
+                onClick={() => changeMonth(-1)}
+                aria-label="Предыдущий месяц"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <strong className="min-w-40 border-x border-orange-100 px-3 text-center capitalize">
+                {monthTitle}
+              </strong>
+              <button
+                className="grid h-full w-10 place-items-center text-brand-orange hover:bg-orange-50"
+                onClick={() => changeMonth(1)}
+                aria-label="Следующий месяц"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <div className="overflow-auto">
+          <div
+            className="min-w-max"
+            style={{
+              display: "grid",
+              gridTemplateColumns: `176px repeat(${days.length}, 76px)`,
+            }}
+          >
+            <div className="sticky left-0 z-30 flex h-[62px] items-center gap-2 border-b border-r border-orange-100 bg-white p-3 font-semibold">
+              <Users className="h-4 w-4 text-brand-orange" />
+              Сотрудник
+            </div>
+            {days.map((day) => {
+              const weekend = day.getDay() === 0 || day.getDay() === 6;
+              const today =
+                dateKey(day) === dateKey(new Date());
+              return (
+                <div
+                  key={dateKey(day)}
+                  className={cn(
+                    "flex h-[62px] flex-col items-center justify-center border-b border-r text-sm",
+                    weekend && "bg-orange-50 text-brand-orange",
+                    today && "border-t-4 border-t-brand-orange bg-orange-100"
+                  )}
+                >
+                  <strong>{day.getDate()}</strong>
+                  <span className="text-xs">{WEEKDAY_SHORT[day.getDay()]}</span>
+                </div>
+              );
+            })}
+
+            {visibleSpecialists.length === 0 && (
+              <div className="col-span-full p-10 text-center text-text-secondary">
+                Сотрудники не найдены
               </div>
             )}
 
-            {displaySpecialists.map((spec) => (
-              <div
-                key={spec.id}
-                className="flex border-b last:border-b-0 hover:bg-surface-hover/50 transition-colors"
-              >
-                <div className="flex w-44 shrink-0 items-center gap-2 p-3 border-r">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-orange text-xs font-semibold text-white">
-                    {spec.full_name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")
-                      .slice(0, 2)}
+            {visibleSpecialists.map((specialist) => (
+              <div className="contents" key={specialist.id}>
+                <div className="sticky left-0 z-20 flex h-[68px] items-center gap-2 border-b border-r border-orange-100 bg-white px-3 shadow-[4px_0_8px_rgba(0,0,0,0.03)]">
+                  {specialist.photo_url ? (
+                    <img
+                      src={specialist.photo_url}
+                      alt=""
+                      className="h-10 w-10 rounded-full border-2 border-orange-200 object-cover"
+                    />
+                  ) : (
+                    <span className="grid h-10 w-10 place-items-center rounded-full bg-orange-100 text-xs font-bold text-brand-orange">
+                      {specialist.full_name
+                        .split(" ")
+                        .map((part) => part[0])
+                        .join("")
+                        .slice(0, 2)}
+                    </span>
+                  )}
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-semibold">
+                      {specialist.full_name}
+                    </p>
+                    <p className="truncate text-[10px] text-text-muted">
+                      {specialist.specialization || "Сотрудник"}
+                    </p>
                   </div>
-                  <span className="text-sm font-medium truncate">
-                    {spec.full_name}
-                  </span>
                 </div>
 
-                {daysToShow.map((day) => {
-                  const sched = getSchedule(spec.id, day);
-                  const edit = getEditValue(spec.id, day);
-                  const hasSchedule = !!sched;
-                  const isEditing = editMode && edit !== undefined;
-
+                {days.map((day) => {
+                  const schedule = getSchedule(specialist.id, day);
+                  const weekend = day.getDay() === 0 || day.getDay() === 6;
                   return (
-                    <div
-                      key={day}
+                    <button
+                      key={`${specialist.id}-${dateKey(day)}`}
+                      onClick={() => openCell(specialist, day)}
                       className={cn(
-                        "flex-1 p-2 border-l flex items-center justify-center min-h-[56px]",
-                        !hasSchedule && !isEditing && "bg-surface-muted/30"
+                        "group relative flex h-[68px] flex-col items-center justify-center border-b border-r bg-white text-xs transition hover:bg-orange-50",
+                        weekend && "bg-orange-50/40"
                       )}
                     >
-                      {editMode ? (
-                        <div className="flex items-center gap-1">
-                          <Input
-                            type="time"
-                            value={edit?.start_time || ""}
-                            onChange={(e) =>
-                              setCellTime(spec.id, day, "start_time", e.target.value)
-                            }
-                            className="h-7 w-16 text-xs px-1"
-                            placeholder="--:--"
-                          />
-                          <span className="text-xs text-text-muted">—</span>
-                          <Input
-                            type="time"
-                            value={edit?.end_time || ""}
-                            onChange={(e) =>
-                              setCellTime(spec.id, day, "end_time", e.target.value)
-                            }
-                            className="h-7 w-16 text-xs px-1"
-                            placeholder="--:--"
-                          />
-                        </div>
-                      ) : hasSchedule ? (
-                        <span className="text-sm font-medium">
-                          {sched.start_time.slice(0, 5)} — {sched.end_time.slice(0, 5)}
-                        </span>
+                      {schedule ? (
+                        <>
+                          <span>{schedule.start_time.slice(0, 5)}</span>
+                          <span className="mt-1 font-semibold text-brand-orange">
+                            {schedule.end_time.slice(0, 5)}
+                          </span>
+                        </>
                       ) : (
-                        <span className="text-xs text-text-muted">—</span>
+                        <span className="text-text-muted">Выходной</span>
                       )}
-                    </div>
+                      <Pencil className="absolute right-1 top-1 hidden h-3 w-3 text-brand-orange group-hover:block" />
+                    </button>
                   );
                 })}
               </div>
             ))}
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </section>
+
+      {selectedCell && (
+        <div
+          className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4"
+          onMouseDown={(event) => {
+            if (event.currentTarget === event.target) setSelectedCell(null);
+          }}
+        >
+          <div className="w-full max-w-md rounded-2xl bg-white p-5 shadow-2xl">
+            <div className="mb-5 flex items-start justify-between">
+              <div>
+                <h2 className="text-lg font-bold">Рабочее время</h2>
+                <p className="text-sm text-text-secondary">
+                  {selectedCell.specialist.full_name} ·{" "}
+                  {selectedCell.date.toLocaleDateString("ru-RU", {
+                    day: "numeric",
+                    month: "long",
+                    weekday: "long",
+                  })}
+                </p>
+              </div>
+              <button
+                className="rounded-lg p-2 hover:bg-orange-50"
+                onClick={() => setSelectedCell(null)}
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <label className="space-y-1 text-sm font-medium">
+                Начало
+                <input
+                  type="time"
+                  value={cellEdit.start_time}
+                  onChange={(event) =>
+                    setCellEdit((value) => ({
+                      ...value,
+                      start_time: event.target.value,
+                    }))
+                  }
+                  className="mt-1 h-11 w-full rounded-lg border px-3 outline-none focus:border-brand-orange"
+                />
+              </label>
+              <label className="space-y-1 text-sm font-medium">
+                Окончание
+                <input
+                  type="time"
+                  value={cellEdit.end_time}
+                  onChange={(event) =>
+                    setCellEdit((value) => ({
+                      ...value,
+                      end_time: event.target.value,
+                    }))
+                  }
+                  className="mt-1 h-11 w-full rounded-lg border px-3 outline-none focus:border-brand-orange"
+                />
+              </label>
+            </div>
+
+            <p className="mt-3 rounded-lg bg-orange-50 p-3 text-xs text-orange-800">
+              Изменение применяется к этому дню недели в рабочем шаблоне сотрудника.
+            </p>
+
+            <div className="mt-5 flex flex-wrap justify-end gap-2">
+              <Button
+                variant="outline"
+                className="border-red-200 text-red-600 hover:bg-red-50"
+                disabled={saving}
+                onClick={() => saveCell(true)}
+              >
+                Сделать выходным
+              </Button>
+              <Button disabled={saving} onClick={() => saveCell(false)}>
+                <Save className="mr-1 h-4 w-4" />
+                {saving ? "Сохраняем..." : "Сохранить"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
