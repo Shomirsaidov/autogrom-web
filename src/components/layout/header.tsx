@@ -10,10 +10,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOut, User, Menu } from "lucide-react";
 import { ROLE_LABELS } from "@/lib/constants";
 import { NotificationsBell } from "./notifications-bell";
+import { useRouter } from "next/navigation";
 
 interface Props {
   onMenuClick: () => void;
@@ -21,6 +22,7 @@ interface Props {
 
 export function Header({ onMenuClick }: Props) {
   const { user, logout } = useAuth();
+  const router = useRouter();
 
   const initials = user?.name
     ? user.name
@@ -49,8 +51,9 @@ export function Header({ onMenuClick }: Props) {
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="relative h-9 w-9 rounded-full p-0">
-            <Avatar className="h-9 w-9">
+          <Button variant="ghost" className="relative h-11 w-11 rounded-full p-0 ring-2 ring-brand-orange/15 hover:ring-brand-orange/35">
+            <Avatar className="h-11 w-11">
+              {user?.avatar_url && <AvatarImage src={user.avatar_url} alt={user.name || "Профиль"} className="object-cover" />}
               <AvatarFallback className="bg-brand-orange text-white text-xs">
                 {initials}
               </AvatarFallback>
@@ -72,7 +75,7 @@ export function Header({ onMenuClick }: Props) {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push("/profile")} className="cursor-pointer py-2.5">
             <User className="mr-2 h-4 w-4" />
             Профиль
           </DropdownMenuItem>

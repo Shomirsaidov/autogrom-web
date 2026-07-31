@@ -16,6 +16,7 @@ interface AuthState {
   loading: boolean;
   login: (emailOrPhone: string, password: string) => Promise<void>;
   logout: () => void;
+  updateUser: (user: User, token?: string) => void;
   isAuthenticated: boolean;
 }
 
@@ -30,7 +31,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (token) {
       api
         .get<{ user: User }>("/api/auth/me")
-        .then((res) => setUser(res.user))
+        .then((res) => setUser({ ...res.user, avatar_url: localStorage.getItem("profile_avatar") || undefined }))
         .catch(() => api.setToken(null))
         .finally(() => setLoading(false));
     } else {
@@ -45,7 +46,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         { identifier: emailOrPhone, password }
       );
       api.setToken(res.token);
-      setUser(res.user);
+      setUser({ ...res.user, avatar_url: localStorage.getItem("profile_avatar") || undefined });
     },
     []
   );
@@ -55,9 +56,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
   }, []);
 
+  const updateUser = useCallback((nextUser: User, token?: string) => {
+    if (token) api.setToken(token);
+    if (nextUser.avatar_url) localStorage.setItem("profile_avatar", nextUser.avatar_url);
+    else localStorage.removeItem("profile_avatar");
+    setUser(nextUser);
+  }, []);
+
   return (
     <AuthContext.Provider
-      value={{ user, loading, login, logout, isAuthenticated: !!user }}
+      value={{ user, loading, login, logout, updateUser, isAuthenticated: !!user }}
     >
       {children}
     </AuthContext.Provider>
